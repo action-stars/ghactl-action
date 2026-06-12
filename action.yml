@@ -1,0 +1,89 @@
+name: Install ghactl
+description: Installs GitHub Actions CLI (`ghactl`).
+branding:
+  icon: zap
+  color: yellow
+inputs:
+  token:
+    description: GitHub token to use for authentication.
+    required: true
+    default: ${{ github.token }}
+  version:
+    description: Version of `ghactl` to install; defaults to `latest`.
+    required: false
+    default: latest
+runs:
+  using: composite
+  steps:
+    - name: Install
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        INPUT_VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+
+        echo "::group::Bootstrapping ghactl"
+
+        version="${INPUT_VERSION}"
+        if [[ "${version}" == "latest" ]]; then
+          version="$(curl --silent --show-error --fail --location --header "Authorization: Bearer ${GITHUB_TOKEN}" "https://api.github.com/repos/action-stars/ghactl/releases/latest" | jq --raw-output '.tag_name')"
+        fi
+        version="${version#v}"
+        echo "Bootstrap version: ${version}"
+
+        case "${RUNNER_OS}" in
+          Linux)
+            os="linux"
+            ;;
+          macOS)
+            os="darwin"
+            ;;
+          Windows)
+            os="windows"
+            ;;
+          *)
+            echo "::error::Unsupported runner OS ${RUNNER_OS}"
+            exit 1
+            ;;
+        esac
+        echo "Bootstrap OS: ${os}"
+
+        case "${RUNNER_ARCH}" in
+          X64)
+            arch="amd64"
+            ;;
+          ARM64)
+            arch="arm64"
+            ;;
+          *)
+            echo "::error::Unsupported runner architecture ${RUNNER_ARCH}"
+            exit 1
+            ;;
+        esac
+        echo "Bootstrap architecture: ${arch}"
+
+        temp_dir="$(mktemp -d)"
+        archive_path="${temp_dir}/ghactl.tar.gz"
+        url="https://github.com/action-stars/ghactl/releases/download/v${version}/ghactl_${version}_${os}_${arch}.tar.gz"
+        curl --silent --show-error --fail --location --header "Authorization: Bearer ${GITHUB_TOKEN}" --output "${archive_path}" "${url}"
+        echo "Bootstrap archive: ${archive_path}"
+
+        tar -xzf "${archive_path}" --directory "${temp_dir}"
+
+        if [[ "${RUNNER_OS}" == "Windows" ]]; then
+          ghactl_cmd="${temp_dir}/ghactl.exe"
+        else
+          ghactl_cmd="${temp_dir}/ghactl"
+        fi
+        echo "Bootstrap command: ${ghactl_cmd}"
+
+        echo "::endgroup::"
+
+        echo "::group::Installing ghactl"
+
+        path="$("${ghactl_cmd}" tool install --owner action-stars --repo ghactl --version "${version}")"
+        echo "Version: ${version}"
+        echo "Path: ${path}"
+
+        echo "::endgroup::"

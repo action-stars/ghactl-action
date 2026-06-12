@@ -1,0 +1,56 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  validate:
+    name: Validate
+    uses: action-stars/generic-workflows/.github/workflows/validate-gh-workflows.yaml@d4724b3ea1635d9cc7064f5302cc411e54d52334 # v0.9.0
+    with:
+      auto_doc: true
+      shellcheck: true
+      yamlfmt: true
+      rumdl: true
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs:
+      - validate
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ["latest", "0.0.4", "v0.0.4"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 1
+      - name: Install ghactl
+        uses: ./
+        with:
+          token: ${{ github.token }}
+          version: ${{ matrix.version }}
+      - name: Check
+        run: |
+          set -euo pipefail
+
+          which ghactl
+          ghactl --version
