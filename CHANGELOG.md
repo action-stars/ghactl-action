@@ -14,6 +14,10 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _[actions/checkout](https://github.com/actions/checkout)_ from `6.0.3` to `7.0.0`. ([#2](https://github.com/action-stars/ghactl-action/pull/2)) _@dependabot_
+
 ## [v0.0.1] - 2026-06-12
 
 ### Added
