@@ -17,6 +17,9 @@
 ### Changed
 
 - Update _[actions/checkout](https://github.com/actions/checkout)_ from `6.0.3` to `7.0.0`. ([#2](https://github.com/action-stars/ghactl-action/pull/2)) _@dependabot_
+- Update _action-stars/generic-workflows/.github/workflows/dependabot-changelog.yaml_ from `0.9.0` to `0.11.0`. ([#3](https://github.com/action-stars/ghactl-action/pull/3)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/release.yaml_ from `0.9.0` to `0.11.0`. ([#3](https://github.com/action-stars/ghactl-action/pull/3)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/validate-gh-workflows.yaml_ from `0.9.0` to `0.11.0`. ([#3](https://github.com/action-stars/ghactl-action/pull/3)) @dependabot
 
 ## [v0.0.1] - 2026-06-12
 
