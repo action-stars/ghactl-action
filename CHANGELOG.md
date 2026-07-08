@@ -14,6 +14,12 @@
 
 ## [UNRELEASED]
 
+## [v0.1.0] - 2026-07-08
+
+### Added
+
+- Add `cosign` verification of the bootstrap archive. ([#4](https://github.com/action-stars/ghactl-action/pull/4)) @stevehipwell
+
 ### Changed
 
 - Update _[actions/checkout](https://github.com/actions/checkout)_ from `6.0.3` to `7.0.0`. ([#2](https://github.com/action-stars/ghactl-action/pull/2)) _@dependabot_
@@ -30,5 +36,6 @@
 <!--
 RELEASES
 -->
-[UNRELEASED]: https://github.com/action-stars/ghactl-action/compare/v0.0.1...HEAD
+[UNRELEASED]: https://github.com/action-stars/ghactl-action/compare/v0.1.0...HEAD
+[v0.1.0]: https://github.com/action-stars/ghactl-action/releases/tag/v0.1.0
 [v0.0.1]: https://github.com/action-stars/ghactl-action/releases/tag/v0.0.1
