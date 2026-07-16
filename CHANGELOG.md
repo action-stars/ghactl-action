@@ -14,6 +14,12 @@
 
 ## [UNRELEASED]
 
+### Changed
+
+- Update _action-stars/generic-workflows/.github/workflows/dependabot-changelog.yaml_ from `0.11.0` to `0.12.0`. ([#5](https://github.com/action-stars/ghactl-action/pull/5)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/release.yaml_ from `0.11.0` to `0.12.0`. ([#5](https://github.com/action-stars/ghactl-action/pull/5)) @dependabot
+- Update _action-stars/generic-workflows/.github/workflows/validate-gh-workflows.yaml_ from `0.11.0` to `0.12.0`. ([#5](https://github.com/action-stars/ghactl-action/pull/5)) @dependabot
+
 ## [v0.1.0] - 2026-07-08
 
 ### Added
