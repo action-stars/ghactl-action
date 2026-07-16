@@ -1,8 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: github-actions
-    directories:
-      - /
+    directory: /
     groups:
       github-actions:
         applies-to: version-updates
@@ -20,5 +19,7 @@ updates:
           - patch
     commit-message:
       prefix: deps
+    labels:
+      - dependency
     schedule:
       interval: weekly
